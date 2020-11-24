@@ -1,0 +1,29 @@
+.container {
+    background-color: aqua;
+    display: flex;
+    width: 206px;
+    height: 106px;
+}
+
+.minus, .plus{
+    height: 21px;
+    width: 23px;
+
+}
+
+.counter{
+    margin: 58px 0px 19px 21px;
+    width: 75px;
+    display: flex;
+    align-items: baseline;
+}
+
+.buy{
+    margin-top: 61px; 
+}
+.count input{
+    width: 33px;
+    height: 25px;
+    padding: 0px;
+    text-align: center;
+}
