@@ -7,7 +7,7 @@
 
 .minus, .plus{
     height: 21px;
-    width: 23px;
+    min-width: 23px;
 
 }
 
@@ -18,12 +18,10 @@
     align-items: baseline;
 }
 
-.buy{
-    margin-top: 61px; 
-}
+
 .count input{
-    width: 33px;
-    height: 25px;
-    padding: 0px;
+    width: 29px;
+    height: 23px;
     text-align: center;
 }
+
