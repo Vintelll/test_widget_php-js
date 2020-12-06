@@ -1,4 +1,6 @@
 <?php
+$get = $_GET('col');
+echo $get;
 
 $link = mysqli_connect('localhost', 'root', 'password', 'db_name');
 
