@@ -5,27 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <title>Widget</title>
 </head>
 
 <body>
     <div class="wrapper">
-        <div class="container">
+        <form class="container" method="get">
             <div class="counter">
                 <div class="minus">
                     <button>-</button>
                 </div>
                 <div class="count">
-                    <input></input>
+                    <input type="number" name="col" value="1"></input>
                 </div>
                 <div class="plus">
                     <button>+</button>
                 </div>
             </div>
             <div class="buy">
-                <button>Купить</button>
+                <button name="cart" value="add">Купить</button>
             </div>
-        </div>
+        </form>
     </div>
     </div>
 </body>
