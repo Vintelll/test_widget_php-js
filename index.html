@@ -15,17 +15,18 @@
         <form id='Form' class="container" method="get" action="test.php">
             <div class="counter">
                 <div class="minus">
-                    <button>-</button>
+                    <button class="minus">-</button>
                 </div>
                 <div class="count">
-                    <input type="number" name="col" value="1"></input>
+                    <input type="hidden" name="cart" value="add"></input>
+                    <input type="number" min="1" name="col" value="1"></input>
                 </div>
                 <div class="plus">
-                    <button>+</button>
+                    <button class="plus">+</button>
                 </div>
             </div>
             <div class="buy">
-                <button name="cart" value="add">Купить</button>
+                <button class="submit">Купить</button>
             </div>
         </form>
     </div>
