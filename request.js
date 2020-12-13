@@ -6,17 +6,16 @@ $(function() {
             url:$form.attr('action'),
             data:$form.serialize()
         }).done(function(data) {
-            console.log('success');
+            console.log('Ajax request success');
             console.log(JSON.parse(data));
             $('.response').text(JSON.parse(data).textReply);
-            $('.message').removeClass('hidden');
-            $('.arrow').removeClass('hidden');
+            $('.hidden').removeClass('hidden');
             setTimeout(function(){
                 $('.message').addClass('hidden');
                 $('.arrow').addClass('hidden');
             }, 3000);
         }).fail(function(){
-            console.log('fail');
+            console.log('Ajax request failed');
         });
         e.preventDefault();
         });
@@ -42,4 +41,10 @@ $(function() {
 
         plus.preventDefault();
         });
+    $("input[name='col']").change(function() {
+        if ((this.value) <= 0){
+            alert('Минимальное количество к заказу 1!');
+            $("input[name='col']").val(1);
+        }
+    });
     });
