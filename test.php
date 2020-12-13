@@ -2,7 +2,10 @@
 if($_GET['cart'] ==='add'){
     $link = mysqli_connect('localhost', 'root', 'root', 'product_widget');
     if(mysqli_connect_errno()){
-        echo json_encode(array('ошибка' => 'Ошибка подключения к базе данных'));
+        $response = array(
+            'statusCode' => '0',
+            'textReply' => 'Ошибка подключения к базе данных');
+        echo json_encode($response);
         exit();
     }
     $count = intval($_GET['col']);

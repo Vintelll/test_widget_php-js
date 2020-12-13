@@ -8,6 +8,13 @@ $(function() {
         }).done(function(data) {
             console.log('success');
             console.log(JSON.parse(data));
+            $('.response').text(JSON.parse(data).textReply);
+            $('.message').removeClass('hidden');
+            $('.arrow').removeClass('hidden');
+            setTimeout(function(){
+                $('.message').addClass('hidden');
+                $('.arrow').addClass('hidden');
+            }, 3000);
         }).fail(function(){
             console.log('fail');
         });
