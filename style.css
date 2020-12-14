@@ -130,6 +130,10 @@ input:focus {
     background: linear-gradient(#9c9a7d, #494635);
 }
 
+.inative{
+    opacity: 0.5;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
