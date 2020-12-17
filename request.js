@@ -19,7 +19,7 @@ $(function() {
             $(".submit").removeClass("inative")
         }, delay);
     };
-    $('.submit').click(function(e){
+    function sendAjax(){
         var $form = $('#Form');
         $.ajax({
             type:$form.attr('method'),
@@ -32,18 +32,29 @@ $(function() {
         }).fail(function(){
             console.log('Ajax request failed');
         });
+    };
+    $('.submit').click(function(e){
+        sendAjax();
         e.preventDefault();
         });
+    $("input[name='col']").keyup(function(keypress){
+        if (keypress.key == "Enter"){
+            keypress.preventDefault();
+            console.log("enter");
+            sendAjax();
+        };
+    });
     $('button.minus').click(function(minus){
+        console.log('minus')
         var currentValue = parseInt($("input[name='col']").val());
         if ((currentValue - 1) > 0){
             $("input[name='col']").val(currentValue - 1);
+            console.log('minus')
         } else {
             countAlert();
             disableSubmit(3000);
-        }
+        };
         minus.preventDefault();
-
         });
     $('button.plus').click(function(plus){
         var currentValue = parseInt($("input[name='col']").val());
@@ -51,14 +62,12 @@ $(function() {
         plus.preventDefault();
     });
     $("input[name='col']").change(function() {
-        if ((this.value) <= 0){
+        var value = parseInt(this.value)
+        if (value <= 0){
             countAlert();
             disableSubmit(3000);
         }else if (!Number.isInteger(this.value)) {
-            disableSubmit(3000)
-            this.value = Math.round(this.value);
-            var message = "Допустимо только целое число!";
-            throwMessage(message, 3000);
+            this.value = value;
         }
     });
     });
