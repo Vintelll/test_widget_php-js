@@ -25,3 +25,4 @@ if($_GET['cart'] ==='add'){
     echo json_encode($response);
     };
 ?>
+

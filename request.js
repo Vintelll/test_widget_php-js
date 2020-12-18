@@ -1,8 +1,4 @@
 $(function() {
-    function countAlert(){
-        alert('Минимальное количество к заказу 1!');
-        $("input[name='col']").val(1);
-    };
     function throwMessage(text, delay){
         $('.response').text(text);
         $('.hidden').removeClass('hidden');
@@ -10,6 +6,10 @@ $(function() {
             $('.message').addClass('hidden');
             $('.arrow').addClass('hidden');
         }, delay);
+    };
+    function countAlert(){
+        throwMessage('Минимальное количество к заказу 1!', 3000);
+        $("input[name='col']").val(1);
     };
     function disableSubmit(delay){
         $(".submit").attr("disabled", true);
@@ -35,16 +35,10 @@ $(function() {
     };
     $('.submit').click(function(e){
         sendAjax();
+        disableSubmit(3000);
         e.preventDefault();
         });
-    $("input[name='col']").keyup(function(keypress){
-        if (keypress.key == "Enter"){
-            keypress.preventDefault();
-            console.log("enter");
-            sendAjax();
-        };
-    });
-    $('button.minus').click(function(minus){
+    $('a.minus').click(function(minus){
         console.log('minus')
         var currentValue = parseInt($("input[name='col']").val());
         if ((currentValue - 1) > 0){
@@ -56,18 +50,19 @@ $(function() {
         };
         minus.preventDefault();
         });
-    $('button.plus').click(function(plus){
+    $('a.plus').click(function(plus){
         var currentValue = parseInt($("input[name='col']").val());
         $("input[name='col']").val(currentValue + 1);
         plus.preventDefault();
     });
     $("input[name='col']").change(function() {
-        var value = parseInt(this.value)
-        if (value <= 0){
+        var currentValue = parseInt(this.value)
+        if (currentValue <= 0){
             countAlert();
             disableSubmit(3000);
-        }else if (!Number.isInteger(this.value)) {
-            this.value = value;
         }
+        else{
+            $("input[name='col']").val(currentValue);
+        };
     });
     });
