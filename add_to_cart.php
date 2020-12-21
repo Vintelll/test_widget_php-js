@@ -15,6 +15,7 @@ function appendDataToLog($error, $countToOrder)
     }
     fputcsv($file, array($time, $ip, $countToOrder, $error));
     fclose($file);
+    sendEmail(implode(' ', array($time, $ip, $countToOrder, $error)));
 };
 
 function writeErrorLog($error, $countToOrder)
@@ -27,6 +28,17 @@ function writeErrorLog($error, $countToOrder)
         fclose($file);
         appendDataToLog($error, $countToOrder);
     };
+};
+
+function sendEmail($message)
+{
+    $to      = 'zhavoronkov_kk@mb-i.ru';
+    $subject = 'Error';
+    $headers = 'From: zhavoronkov_kk@mb-i.ru' . "\r\n" .
+        'Reply-To: zhavoronkov_kk@mb-i.ru' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    mail($to, $subject, $message, $headers);
 };
 
 if ($_GET['cart'] === 'add') {
