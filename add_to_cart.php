@@ -4,7 +4,7 @@ $server = 'localhost';
 $username = 'root';
 $password = 'root';
 $dbName = 'shop';
-
+// функция добавления записи об ошибке в существующий файл
 function appendDataToLog($error, $countToOrder)
 {
     $file = fopen('log.csv', 'a');
@@ -17,7 +17,7 @@ function appendDataToLog($error, $countToOrder)
     fclose($file);
     sendEmail(implode(' ', array($time, $ip, $countToOrder, $error)));
 };
-
+// функция добавления записи ошибок с проверкой на существование файла
 function writeErrorLog($error, $countToOrder)
 {
     if (file_exists('log.csv')) {
@@ -29,7 +29,7 @@ function writeErrorLog($error, $countToOrder)
         appendDataToLog($error, $countToOrder);
     };
 };
-
+// функция отправки ошибок по почте(требуется сконфигурировать сервер)
 function sendEmail($message)
 {
     $to      = 'zhavoronkov_kk@mb-i.ru';
