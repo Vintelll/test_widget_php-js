@@ -5,23 +5,30 @@ $username = 'root';
 $password = 'root';
 $dbName = 'shop';
 
+function appendDataToLog($error, $countToOrder)
+{
+    $file = fopen('log.csv', 'a');
+    $time = date_format(new DateTime('NOW'), 'Y-m-d H:i');
+    $ip  = strval($_SERVER['REMOTE_ADDR']);
+    if ($ip === '::1') {
+        $ip = 'localhost';
+    }
+    fputcsv($file, array($time, $ip, $countToOrder, $error));
+    fclose($file);
+};
+
 function writeErrorLog($error, $countToOrder)
 {
     if (file_exists('log.csv')) {
-        $file = fopen('log.csv', 'a');
-        $time = date_format(new DateTime('NOW'), 'Y-m-d H:i');
-        $ip  = strval($_SERVER['REMOTE_ADDR']);
-        if ($ip === '::1') {
-            $ip = 'localhost';
-        }
-        fputcsv($file, array($time, $ip, $countToOrder, $error));
-        fclose($file);
+        appendDataToLog($error, $countToOrder);
     } else {
         $file = fopen('log.csv', 'wb');
         fputcsv($file, array('Time', 'ClientIP', 'CountToOrder', 'Error'));
         fclose($file);
+        appendDataToLog($error, $countToOrder);
     };
-}
+};
+
 if ($_GET['cart'] === 'add') {
     mysqli_report(MYSQLI_REPORT_STRICT | MYSQLI_REPORT_ALL);
     try {
