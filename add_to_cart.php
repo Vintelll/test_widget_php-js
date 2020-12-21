@@ -4,6 +4,24 @@ $server = 'localhost';
 $username = 'root';
 $password = 'root';
 $dbName = 'shop';
+
+function writeErrorLog($error, $countToOrder)
+{
+    if (file_exists('log.csv')) {
+        $file = fopen('log.csv', 'a');
+        $time = date_format(new DateTime('NOW'), 'Y-m-d H:i');
+        $ip  = strval($_SERVER['REMOTE_ADDR']);
+        if ($ip === '::1') {
+            $ip = 'localhost';
+        }
+        fputcsv($file, array($time, $ip, $countToOrder, $error));
+        fclose($file);
+    } else {
+        $file = fopen('log.csv', 'wb');
+        fputcsv($file, array('Time', 'ClientIP', 'CountToOrder', 'Error'));
+        fclose($file);
+    };
+}
 if ($_GET['cart'] === 'add') {
     mysqli_report(MYSQLI_REPORT_STRICT | MYSQLI_REPORT_ALL);
     try {
@@ -14,12 +32,16 @@ if ($_GET['cart'] === 'add') {
             'textReply' => 'Ошибка подключения к базе данных',
             'nativeErrorText' => mysqli_connect_error()
         );
+        writeErrorLog(mysqli_connect_error(), $_GET['col']);
         echo json_encode($response);
         exit();
     };
     if ($link) {
         $count = intval($_GET['col']);
         $ip  = strval($_SERVER['REMOTE_ADDR']);
+        if ($ip === '::1') {
+            $ip = 'localhost';
+        }
         $sql = "INSERT INTO `orders`(count, ip) VALUES ($count, '$ip')";
         try {
             mysqli_query($link, $sql);
@@ -33,6 +55,7 @@ if ($_GET['cart'] === 'add') {
                 'textReply' => 'Ошибка при записи в базу данных',
                 'nativeErrorText' => $e->getMessage()
             );
+            writeErrorLog($e->getMessage(), $count);
         };
         echo json_encode($response);
     };
